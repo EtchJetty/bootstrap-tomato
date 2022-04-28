@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Tomato Timer - Online Pomodoro Timer App | Toptal&reg;</title>
+  <meta name="description"
+    content="Tomato Timer is a flexible and easy-to-use online Pomodoro technique timer. Boost your productivity with Tomato Timer." />
+  <meta name="keywords"
+    content="pomodoro technique, tomato timer, pomodoro timer, online pomodoro timer, software timer, pomodoro software timer, productivity tools, gtd, getting things done, productivity, digital timer, concentration techniques, pomodoro resources, pomodoro software" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="msapplication-config" content="/browserconfig.xml" />
+  <link rel="canonical" href="https://www.toptal.com" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#ffffff" />
+  <!-- <link rel="stylesheet" href="/css/foundation.css" />
+  <link rel="stylesheet" href="/css/app.css" /> -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <script src="/js/foundation.min.js"></script>
+  <script src="/js/howler2.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment-with-locales.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="/js/HackTimer.js"></script>
+  <script src="/js/HackTimerWorker.js"></script>
+</head>
+
+<body>
+  <!-- <style>
+    body,
+    html {
+      padding: 0;
+      margin: 0
+    }
+
+    @font-face {
+      font-display: swap;
+      font-weight: 400;
+      font-family: Proxima Nova;
+      font-style: normal;
+      src: url(/fonts/ProximaNova-Regular.woff2) format('woff2'), url(/fonts/ProximaNova-Regular.woff) format('woff'), url(/fonts/ProximaNova-Regular.otf) format('opentype')
+    }
+
+    @font-face {
+      font-display: swap;
+      font-weight: 600 700;
+      font-family: Proxima Nova;
+      font-style: normal;
+      src: url(/fonts/ProximaNova-Semibold.woff2) format('woff2'), url(/fonts/ProximaNova-Semibold.woff) format('woff'), url(/fonts/ProximaNova-Semibold.otf) format('opentype')
+    }
+
+    .ttwrapper {
+      display: flex;
+      padding: 8px 16px;
+      background: #fff;
+      font-weight: 400;
+      font-family: Proxima Nova, Arial, sans-serif;
+      font-size: 14px;
+      line-height: 22px;
+      align-items: flex-start
+    }
+
+    .ttwrapper.ttwrapper--light-bg {
+      border-bottom: 1px solid #ccc
+    }
+
+    .ttwrapper__icon {
+      width: 15px;
+      height: 15px;
+      margin-right: 10px;
+      background-image: url("data:image/svg+xml,%0A%3Csvg width='15' height='15' viewBox='0 0 15 15' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15ZM7.5 14C11.0899 14 14 11.0899 14 7.5C14 3.91015 11.0899 1 7.5 1C3.91015 1 1 3.91015 1 7.5C1 11.0899 3.91015 14 7.5 14ZM8 3V9H7V3H8ZM8 12V11H7V12H8Z' fill='%23262D3D'/%3E%3C/svg%3E%0A");
+      flex-shrink: 0;
+      margin-top: 5px
+    }
+
+    .ttwrapper__links {
+      margin-left: auto;
+      align-self: center
+    }
+
+    .ttwrapper__link,
+    .ttwrapper__link:visited {
+      color: #204ecf;
+      font-weight: 600
+    }
+
+    .ttwrapper__link--api {
+      display: block
+    }
+
+    @media (min-width:700px) {
+      .destination-link {
+        margin-right: 0;
+        margin-left: auto
+      }
+
+      .ttwrapper {
+        height: 38px;
+        padding: 0 32px;
+        align-items: center
+      }
+
+      .ttwrapper__icon {
+        margin-top: 0
+      }
+
+      .ttwrapper__content {
+        display: flex;
+        flex-grow: 1
+      }
+    }
+
+    .ttwrapper.ttwrapper--blue-theme,
+    .ttwrapper.ttwrapper--dark-theme {
+      color: #fff
+    }
+
+    .ttwrapper.ttwrapper--blue-theme a.ttwrapper__link,
+    .ttwrapper.ttwrapper--blue-theme a.ttwrapper__link:visited,
+    .ttwrapper.ttwrapper--dark-theme a.ttwrapper__link,
+    .ttwrapper.ttwrapper--dark-theme a.ttwrapper__link:visited {
+      color: #fff
+    }
+
+    .ttwrapper.ttwrapper--blue-theme .ttwrapper__icon,
+    .ttwrapper.ttwrapper--dark-theme .ttwrapper__icon {
+      background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15ZM7.5 14C11.0899 14 14 11.0899 14 7.5C14 3.91015 11.0899 1 7.5 1C3.91015 1 1 3.91015 1 7.5C1 11.0899 3.91015 14 7.5 14ZM8 3V9H7V3H8ZM8 12V11H7V12H8Z' fill='white'/%3E%3C/svg%3E")
+    }
+
+    .ttwrapper.ttwrapper--dark-theme {
+      background: #000
+    }
+
+    .ttwrapper.ttwrapper--blue-theme {
+      background: #204ecf
+    }
+  </style> -->
+  <!-- <div class="ttwrapper ttwrapper--light-bg ttwrapper--blue-theme">
+    <div class=ttwrapper__icon></div>
+    <div class=ttwrapper__content>
+      <div class=ttwrapper__text>This site has been acquired by <a href=https://www.toptal.com/project-managers
+          class=ttwrapper__link>Toptal</a></div><a class="destination-link ttwrapper__link"
+        href=https://www.toptal.com/tomato-timer-welcome>Learn more</a>
+    </div>
+  </div> -->
+  <!-- Header and Nav -->
+  <div class="panel">
+    <div class="row">
+      <div class="three columns">
+        <h1>TomatoTimer</h1>
+      </div>
+      <div class="nine columns">
+        <ul class="nav-bar right">
+          <li><a href="#" id="link_log" data-reveal-id="trackerModal">Log</a></li>
+          <li><a href="#" id="link_faq" data-reveal-id="faqModal">FAQ</a></li>
+          <li><a href="#" id="link_settings" data-reveal-id="settingsModal">Settings</a></li>
+          <li>
+            <a href="https://twitter.com/intent/tweet?hashtags=pomodoro,productivity&related=tomatotimer&text=Tomato+Timer:+An+easy+to+use+Pomodoro+Technique+Timer&tw_p=tweetbutton&url=https://tomato-timer.com&via=tomatotimer"
+              target="_blank" id="link_tweet">Tweet about us!</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!---->
+  </div>
+  <!---->
+  <div class="row">
+    <div class="ten columns centered">
+      <ul class="button-group even three-up" id="timer_selection">
+        <li>
+          <button class="button active" id="pomodoro" type="submit" value="Pomodoro">
+            Pomodoro
+          </button>
+        </li>
+        <li>
+          <button class="button" id="short_break" type="submit" value="Short Break">
+            Short Break
+          </button>
+        </li>
+        <li>
+          <button class="button" id="long_break" type="submit" value="Long Break">
+            Long Break
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <br />
+  <!-- Header -->
+  <div class="row">
+    <div class="twelve columns text-center">
+      <div id="default_container">
+        <h2 id="timer_default"></h2>
+        <br />
+      </div>
+    </div>
+    <!-- End Header -->
+    <!-- End Header and Nav -->
+  </div>
+  <br />
+  <br />
+  <div class="row">
+    <div class="six columns centered">
+      <div class="four columns">
+        <button class="success radius large button" id="timer_start" type="submit" value="Start">
+          Start
+        </button>
+      </div>
+      <div class="four columns">
+        <button class="alert radius large button" id="timer_pause" type="submit" value="Stop">
+          Stop
+        </button>
+      </div>
+      <div class="four columns">
+        <button class="radius large secondary button" id="timer_reset" type="submit" value="Reset">
+          Reset
+        </button>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="row"><br /></div>
+  <div class="row">
+    <div class="four columns">
+      <div class="panel">
+        <h3>Keyboard Shortcuts</h3>
+        <ul class="disc">
+          <li><strong>SPACE </strong>&nbsp;&nbsp;Start or Stop the timer</li>
+          <li><strong>ALT + P</strong>&nbsp;&nbsp;Pomodoro</li>
+          <li><strong>ALT + S</strong>&nbsp;&nbsp;Short Break</li>
+          <li><strong>ALT + L</strong>&nbsp;&nbsp;Long Break</li>
+          <li><strong>ALT + R</strong>&nbsp;&nbsp;Reset Timer</li>
+        </ul>
+      </div>
+    </div>
+    <div class="four columns">
+      <div class="panel">
+        <h3>Notifications</h3>
+        <p class="subheader">
+          You can change the audio tone and volume via Settings
+        </p>
+        <p class="subheader">
+          Desktop Notifications are currently supported in Chrome, Firefox and
+          Safari
+        </p>
+        <a href="#" id="enable_alerts" onclick="permit();" class="small button">Enable Desktop Alerts</a>
+      </div>
+    </div>
+    <div class="four columns">
+      <div class="panel">
+        <h3>Settings</h3>
+        <p class="subheader">
+          You can set custom times, audio tone and volume via Settings.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="/js/notify.js"></script>
+  <script type="text/javascript" src="/js/jquery.countdown.js"></script>
+  <script type="text/javascript" src="/js/tomato_2.js"></script>
+
+  <div id="faqModal" class="reveal-modal medium">
+    <h2>FAQ</h2>
+    <h3>Q. What is Pomodoro Technique?</h3>
+
+    <div>
+      A. The time management technique created by Francesco Cirillo for a more
+      productive way to work and study. For more information,&nbsp;<a href="https://www.pomodorotechnique.com"
+        target="_blank">click here</a>.
+    </div>
+
+    <div>
+      <br />
+    </div>
+
+    <h3>
+      Q. Can you tell me the story without having to visit the website?
+    </h3>
+
+    <div>
+      <div>A. Well, it comprises of the following basic steps:</div>
+
+      <ul>
+        <li>Decide on the task at hand</li>
+        <li>Set the <strong>Pomodoro</strong> (timer) to 25 minutes</li>
+        <li>Work on the task until the timer expires; Record with an X</li>
+        <li>Take a <strong>Short Break</strong> (5 minutes)</li>
+        <li>
+          Every four "<em>pomodoros</em>", take a
+          <strong>Long Break</strong> (10 minutes)
+        </li>
+      </ul>
+    </div>
+
+    <h3>Q. What is TomatoTimer?</h3>
+
+    <div>
+      A. It's an easy to use, flexible Pomodoro Technique timer. It was
+      inspired by Tomatoi.st and it uses jQuery and HTML5 features like
+      Desktop Notifications, Audio API and Local Storage instead of relying on
+      Adobe Flash and other such technologies.
+    </div>
+
+    <div>
+      <br />
+    </div>
+
+    <h3>Q. Why use TomatoTimer?</h3>
+
+    <div>
+      A.&nbsp;Here's why:
+      <ul>
+        <li>Clean and Crisp interface with a Mobile friendly layout.</li>
+        <li>Ability to Pause or Reset the timer intervals.</li>
+        <li>Audio notifications at the end of a timer period.</li>
+        <li>Desktop notifications. (Only supported in Google Chrome)</li>
+        <li>Keyboard shortcuts.</li>
+        <li>Ability to change the alert sound + volume via Settings</li>
+        <li>Custom Timer Intervals</li>
+        <li>A history of your activity. (Coming soon.)</li>
+      </ul>
+      <br />
+    </div>
+
+    <div>
+      <br />
+    </div>
+
+    <a class="close-reveal-modal">&#215;</a>
+  </div>
+
+  <div id="settingsModal" class="reveal-modal medium">
+    <h2>Options</h2>
+    <h3>User preferences</h3>
+    <p class="flex-container flex-center-items">
+      <input id="checkBoxTimerIndication" type="checkbox" />
+      <label for="checkBoxTimerIndication">Timer indication in title?</label>
+    </p>
+
+    <p class="flex-container flex-center-items">
+      <input id="checkBoxNotifications" type="checkbox" />
+      <label for="checkBoxNotifications">Browser notifications?</label>
+    </p>
+
+    <p class="flex-container flex-center-items">
+      <input id="checkBoxAutoStartSequence" type="checkbox" />
+      <label for="checkBoxAutoStartSequence">Auto start pomodoros and breaks?</label>
+    </p>
+
+    <p class="flex-container flex-center-items">
+      <label for="pomodoro_goal">Pomodoro goal for the day</label>
+      <input class="small-input" type="number" id="pomodoro_goal" step="1" min="1" name="pomodoro_goal" />
+    </p>
+
+    <h3>Select Sound</h3>
+    <select id="alertoption" size="5">
+      <option value="80sAlarm">80s Alarm</option>
+      <option value="alarmclock">Alarm Clock</option>
+      <option value="alarmwatch">Wristwatch Alarm</option>
+      <option value="ding">Elevator Ding</option>
+      <option value="doorbell">Door Bell</option>
+    </select>
+    <br />
+    <h3>Select Volume</h3>
+    <select id="volume" size="5">
+      <option value="0">Mute</option>
+      <option value="0.25">25%</option>
+      <option value="0.5">50%</option>
+      <option value="0.75">75%</option>
+      <option value="1.0">100%</option>
+      <br />
+    </select>
+    <br />
+    <h3>Set Custom Times <small>(in minutes)</small></h3>
+    <div class="row">
+      <div class="four columns">
+        <label for="time_pomodoro">Pomodoro</label>
+        <input type="number" id="time_pomodoro" step="1" min="1" name="time_pomodoro" />
+      </div>
+      <div class="four columns">
+        <label for="time_shortbreak">Short Break</label>
+        <input type="number" id="time_shortbreak" step="1" min="1" name="time_shortbreak" />
+      </div>
+      <div class="four columns">
+        <label for="time_longbreak">Long Break</label>
+        <input type="number" id="time_longbreak" step="1" min="1" name="time_longbreak" />
+      </div>
+    </div>
+    <input type="button" id="submit" value="Save" class="button" onclick="saveSETTINGS();" />
+    <input type="button" id="reset" value="Reset" class="button" onclick="resetSETTINGS();" />
+    <input type="button" id="soundtest" value="Sound Test" class="button" onclick="soundTEST();" />
+    <br />
+    <a class="close-reveal-modal">&#215;</a>
+  </div>
+
+  <div id="trackerModal" class="reveal-modal large">
+    <h2>Time log</h2>
+    <div class="flex-container flex-center-items margin-large-bottom">
+      <div class="margin-small-right">Pomodoro goal tracker:</div>
+      <div id="tracker-goal-pomodoros" class="flex-container"></div>
+    </div>
+    <div class="margin-large-bottom">
+      <button id="pomodoroGoalClear" class="button" onClick="clearPomodoroGoalTracker();">
+        Clear pomodoro's done today
+      </button>
+    </div>
+    <table id="tracker-time-list" style="width: 100%">
+      <tr>
+        <th>Session</th>
+        <th>Start time</th>
+        <th>End time</th>
+        <th>Description</th>
+      </tr>
+    </table>
+
+    <div class="margin-large-bottom">
+      <button id="pomodoroTimerClear" class="button" onClick="clearPomodoroLog();">
+        Clear timer log
+      </button>
+    </div>
+
+    <a class="close-reveal-modal">&#215;</a>
+  </div>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-18513817-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'UA-18513817-1');
+  </script>
+  <script type="text/javascript">
+    function saveSETTINGS() {
+      var snd = $('#alertoption').val()
+      var vol = $('#volume').val()
+      var pomodoro = $('#time_pomodoro').val()
+      var shortbreak = $('#time_shortbreak').val()
+      var longbreak = $('#time_longbreak').val()
+
+      if (
+        !isInteger(pomodoro) ||
+        !isInteger(shortbreak) ||
+        !isInteger(longbreak)
+      )
+        alert('Please use positive integers for all timers')
+      else {
+        localStorage.setItem('alertoption', snd)
+        localStorage.setItem('volumeoption', vol)
+        localStorage.setItem('pomodoro', parseInt(pomodoro))
+        localStorage.setItem('shortbreak', parseInt(shortbreak))
+        localStorage.setItem('longbreak', parseInt(longbreak))
+
+        updateTimers()
+
+        $('#settingsModal .close-reveal-modal')[0].click()
+      }
+    }
+
+    function resetSETTINGS() {
+      $('#alertoption').val('alarmwatch')
+      $('#volume').val(0.5)
+      $('#time_pomodoro').val(25)
+      $('#time_shortbreak').val(5)
+      $('#time_longbreak').val(10)
+    }
+
+    function soundTEST() {
+      buzzer(true)
+    }
+
+    function isInteger(num) {
+      return num && Math.floor(num) == num && $.isNumeric(num) && num > 0
+    }
+  </script>
+  <script src="/js/events.js"></script>
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v652eace1692a40cfa3763df669d7439c1639079717194"
+    integrity="sha512-Gi7xpJR8tSkrpF7aordPZQlW2DLtzUlZcumS8dMQjwDHEnw9I7ZLyiOj/6tZStRBGtGgN6ceN6cMH8z7etPGlw=="
+    data-cf-beacon='{"rayId":"7030626d0ba33b7b","token":"7da7549002684d63b0f6277c72d857c2","version":"2021.12.0","si":100}'
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
